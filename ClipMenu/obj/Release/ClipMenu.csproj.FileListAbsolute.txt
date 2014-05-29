@@ -1,0 +1,11 @@
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Release\ClipMenu.exe.config
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Release\ClipMenu.exe
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Release\ClipMenu.pdb
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.AppComponent.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.AddItemForm.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.Properties.Resources.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.RemoveItemsForm.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.csproj.GenerateResource.Cache
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.exe
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.pdb
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Release\ClipMenu.csprojResolveAssemblyReference.cache

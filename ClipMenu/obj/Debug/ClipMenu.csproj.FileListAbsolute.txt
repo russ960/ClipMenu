@@ -1,0 +1,12 @@
+C:\Users\Flarn\AppData\Local\Temporary Projects\ClipMenu\bin\Debug\ClipMenu.exe.config
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Debug\ClipMenu.exe.config
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Debug\ClipMenu.exe
+d:\src\vs2013\ClipMenu\ClipMenu\bin\Debug\ClipMenu.pdb
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.csprojResolveAssemblyReference.cache
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.AppComponent.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.Properties.Resources.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.csproj.GenerateResource.Cache
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.exe
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.pdb
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.AddItemForm.resources
+d:\src\vs2013\ClipMenu\ClipMenu\obj\Debug\ClipMenu.RemoveItemsForm.resources
