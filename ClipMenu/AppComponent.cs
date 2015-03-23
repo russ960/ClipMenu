@@ -46,7 +46,7 @@ namespace ClipMenu
         void miFileMgmtRestore_Click(object sender, EventArgs e)
         {
             if (File.Exists(ITEM_LIST_BACKUP_FILENAME)) {
-                string msg = "Are you sure you want to restore from your backup?\r\nThis will any changes you have made since then.";
+                string msg = "Are you sure you want to restore from your backup?\r\nYou will lose any changes you have made since then.";
                 if (MessageBox.Show(msg, "Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
                     File.Delete(ITEM_LIST_FILENAME);
                     File.Copy(ITEM_LIST_BACKUP_FILENAME, ITEM_LIST_FILENAME);
