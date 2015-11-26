@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data.SQLite;
 
 namespace ClipMenu
 {
@@ -22,7 +23,34 @@ namespace ClipMenu
         public void Reload()
         {
             items.Clear();
-            if (!File.Exists(filename)) File.Open(filename, FileMode.CreateNew, FileAccess.Write).Close();
+            //if (!File.Exists(filename)) File.Open(filename, FileMode.CreateNew, FileAccess.Write).Close(); //To be removed
+            /* Establish connection to database and will create db file if it does not exist. */
+            var dbfilename = filename + ".db";
+            var constring = "Data Source=" + dbfilename + ";Version=3;";
+            SQLiteConnection dbconn;
+            dbconn = new SQLiteConnection(constring);
+            dbconn.Open();
+            var tableCreateSql = "CREATE TABLE IF NOT EXISTS 'ClipLists' ('ClipListId' INTEGER PRIMARY KEY AUTOINCREMENT, 'ClipListName' TEXT NOT NULL);";
+            tableCreateSql = tableCreateSql + "CREATE TABLE IF NOT EXISTS 'Clips' ('ClipId' INTEGER PRIMARY KEY AUTOINCREMENT, 'ClipName' TEXT NOT NULL, 'ClipText' TEXT, 'ClipListId' INTEGER NOT NULL);";
+            tableCreateSql = tableCreateSql + "INSERT INTO ClipLists (ClipListName) SELECT 'default' WHERE NOT EXISTS (SELECT * FROM ClipLists);";
+            SQLiteCommand cmd = new SQLiteCommand(tableCreateSql,dbconn);
+            cmd.ExecuteNonQuery();
+            /* End database connection opening replacement. */
+
+            /* Load items in to list type item */
+            var getItems = "SELECT ClipName, ClipText FROM Clips";
+            cmd.CommandText = getItems;
+            SQLiteDataReader clipText = cmd.ExecuteReader();
+
+            while (clipText.Read())
+            {
+                items.Add(clipText["ClipText"].ToString());
+            }
+            dbconn.Close();
+            /* End Load items in to list type item */
+
+
+            /* Code to be removed:
             FileStream fs = File.Open(filename, FileMode.Open, FileAccess.Read);
             StreamReader sr = new StreamReader(fs, Encoding.UTF8);
 
@@ -41,6 +69,7 @@ namespace ClipMenu
             }
 
             fs.Close();
+             */
         }
 
         public void Save()
@@ -58,12 +87,30 @@ namespace ClipMenu
 
         public void Add(string item)
         {
+
+            if (item != null && !item.Equals(""))
+            {
+                var dbfilename = filename + ".db";
+                var constring = "Data Source=" + dbfilename + ";Version=3;";
+                SQLiteConnection dbconn;
+                dbconn = new SQLiteConnection(constring);
+                dbconn.Open();
+                var tableCreateSql = "INSERT INTO Clips (ClipName, ClipText, ClipListId) SELECT @item, @item, 1 WHERE NOT EXISTS (SELECT * FROM ClipLists WHERE ClipName = @item);";
+                SQLiteCommand cmd = new SQLiteCommand(tableCreateSql, dbconn);
+                cmd.Parameters.Add(new SQLiteParameter("@item", item));
+                cmd.ExecuteNonQuery();
+                
+
+            }
+
+            /* Code to be removed Start
             if (item != null && !item.Equals("")) {
                 if (!Contains(item)) {
                     items.Add(item);
                     Save();
                 }
             }
+            Code to be removed End */
         }
 
         public void Clear()
