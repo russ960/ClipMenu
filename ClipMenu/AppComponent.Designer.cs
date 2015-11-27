@@ -35,8 +35,8 @@
             this.miAddItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miRemoveItems = new System.Windows.Forms.ToolStripMenuItem();
             this.miFileMgmt = new System.Windows.Forms.ToolStripMenuItem();
-            this.miFileMgmtEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.miFileMgmtReload = new System.Windows.Forms.ToolStripMenuItem();
+            //this.miFileMgmtEdit = new System.Windows.Forms.ToolStripMenuItem();
+            //this.miFileMgmtReload = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.miFileMgmtBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.miFileMgmtRestore = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,28 +98,28 @@
             // miFileMgmt
             // 
             this.miFileMgmt.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miFileMgmtEdit,
-            this.miFileMgmtReload,
+            //this.miFileMgmtEdit,
+            //this.miFileMgmtReload,
             this.toolStripSeparator3,
             this.miFileMgmtBackup,
             this.miFileMgmtRestore});
             this.miFileMgmt.Name = "miFileMgmt";
             this.miFileMgmt.Size = new System.Drawing.Size(166, 22);
-            this.miFileMgmt.Text = "File Management";
+            this.miFileMgmt.Text = "Database Management";
             // 
             // miFileMgmtEdit
             // 
-            this.miFileMgmtEdit.Image = global::ClipMenu.Properties.Resources.page_edit;
-            this.miFileMgmtEdit.Name = "miFileMgmtEdit";
-            this.miFileMgmtEdit.Size = new System.Drawing.Size(122, 22);
-            this.miFileMgmtEdit.Text = "&Edit";
+            //this.miFileMgmtEdit.Image = global::ClipMenu.Properties.Resources.page_edit;
+            //this.miFileMgmtEdit.Name = "miFileMgmtEdit";
+            //this.miFileMgmtEdit.Size = new System.Drawing.Size(122, 22);
+            //this.miFileMgmtEdit.Text = "&Edit";
             // 
             // miFileMgmtReload
             // 
-            this.miFileMgmtReload.Image = global::ClipMenu.Properties.Resources.page_refresh;
-            this.miFileMgmtReload.Name = "miFileMgmtReload";
-            this.miFileMgmtReload.Size = new System.Drawing.Size(122, 22);
-            this.miFileMgmtReload.Text = "Re&load";
+            //this.miFileMgmtReload.Image = global::ClipMenu.Properties.Resources.page_refresh;
+            //this.miFileMgmtReload.Name = "miFileMgmtReload";
+            //this.miFileMgmtReload.Size = new System.Drawing.Size(122, 22);
+            //this.miFileMgmtReload.Text = "Re&load";
             // 
             // toolStripSeparator3
             // 
@@ -178,7 +178,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem miCancel;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmt;
-        private System.Windows.Forms.ToolStripMenuItem miFileMgmtEdit;
+        //private System.Windows.Forms.ToolStripMenuItem miFileMgmtEdit;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmtReload;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmtBackup;

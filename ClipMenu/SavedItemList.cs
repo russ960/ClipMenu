@@ -22,7 +22,7 @@ namespace ClipMenu
 
         public void Reload()
         {
-            items.Clear();
+            items.Clear(); 
             //if (!File.Exists(filename)) File.Open(filename, FileMode.CreateNew, FileAccess.Write).Close(); //To be removed
             /* Establish connection to database and will create db file if it does not exist. */
             var dbfilename = filename + ".db";
@@ -69,11 +69,14 @@ namespace ClipMenu
             }
 
             fs.Close();
-             */
+            Code to be removed End */
         }
 
+        /* Code to be removed Start
         public void Save()
         {
+
+            
             FileStream fs = File.Open(filename, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
 
@@ -83,11 +86,12 @@ namespace ClipMenu
 
             sw.Dispose();
             fs.Close();
+            
         }
+        Code to be removed End */
 
         public void Add(string item)
         {
-
             if (item != null && !item.Equals(""))
             {
                 var dbfilename = filename + ".db";
@@ -95,12 +99,14 @@ namespace ClipMenu
                 SQLiteConnection dbconn;
                 dbconn = new SQLiteConnection(constring);
                 dbconn.Open();
-                var tableCreateSql = "INSERT INTO Clips (ClipName, ClipText, ClipListId) SELECT @item, @item, 1 WHERE NOT EXISTS (SELECT * FROM ClipLists WHERE ClipName = @item);";
-                SQLiteCommand cmd = new SQLiteCommand(tableCreateSql, dbconn);
+                var insertClipsSql = "INSERT INTO Clips (ClipName, ClipText, ClipListId) SELECT @item, @item, 1 WHERE NOT EXISTS (SELECT * FROM Clips WHERE ClipName = @item);";
+                SQLiteCommand cmd = new SQLiteCommand(insertClipsSql, dbconn);
                 cmd.Parameters.Add(new SQLiteParameter("@item", item));
                 cmd.ExecuteNonQuery();
-                
 
+                items.Add(item);
+                
+                dbconn.Close();
             }
 
             /* Code to be removed Start
@@ -113,11 +119,31 @@ namespace ClipMenu
             Code to be removed End */
         }
 
+        
         public void Clear()
         {
             items.Clear();
-            Save();
+
+            /* Code to be removed Start
+            var dbfilename = filename + ".db";
+            var constring = "Data Source=" + dbfilename + ";Version=3;";
+            SQLiteConnection dbconn;
+            dbconn = new SQLiteConnection(constring);
+            dbconn.Open();
+            var clearClipsSql = "DELETE FROM Clips;";
+            SQLiteCommand cmd = new SQLiteCommand(clearClipsSql, dbconn);
+            cmd.ExecuteNonQuery();
+
+            items.Clear();
+
+            dbconn.Close();
+
+           /* Code to be removed Start
+           items.Clear();
+           Save();
+           Code to be removed End */
         }
+         
 
         public bool Contains(string item)
         {
@@ -141,9 +167,24 @@ namespace ClipMenu
 
         public bool Remove(string item)
         {
+            var dbfilename = filename + ".db";
+            var constring = "Data Source=" + dbfilename + ";Version=3;";
+            SQLiteConnection dbconn;
+            dbconn = new SQLiteConnection(constring);
+            dbconn.Open();
+            var removeClipsSql = "DELETE FROM Clips WHERE ClipName = @item;";
+            SQLiteCommand cmd = new SQLiteCommand(removeClipsSql, dbconn);
+            cmd.Parameters.Add(new SQLiteParameter("@item", item));
+            cmd.ExecuteNonQuery();
+            dbconn.Close();
+
+            bool result = items.Remove(item);
+            return result;
+            /*
             bool result = items.Remove(item);
             Save();
             return result;
+             */
         }
 
         public IEnumerator<string> GetEnumerator()

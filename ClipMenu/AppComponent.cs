@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.SQLite;
 
 namespace ClipMenu
 {
     public partial class AppComponent : Component
     {
-        private const string ITEM_LIST_FILENAME = "ClipMenuItems.txt";
+        private const string ITEM_LIST_FILENAME = "ClipMenuItems";
         private const string ITEM_LIST_BACKUP_FILENAME = "ClipMenuItems.bak";
 
         private SavedItemList itemList = new SavedItemList(ITEM_LIST_FILENAME);
@@ -35,8 +36,8 @@ namespace ClipMenu
             miAddItem.Click += miAddItem_Click;
             miRemoveItems.Click += miRemoveItems_Click;
             miExit.Click += miExit_Click;
-            miFileMgmtEdit.Click += miFileMgmtEdit_Click;
-            miFileMgmtReload.Click += miFileMgmtReload_Click;
+            //miFileMgmtEdit.Click += miFileMgmtEdit_Click;
+            //miFileMgmtReload.Click += miFileMgmtReload_Click;
             miFileMgmtBackup.Click += miFileMgmtBackup_Click;
             miFileMgmtRestore.Click += miFileMgmtRestore_Click;
 
@@ -45,6 +46,37 @@ namespace ClipMenu
 
         void miFileMgmtRestore_Click(object sender, EventArgs e)
         {
+            if (File.Exists(ITEM_LIST_BACKUP_FILENAME))
+            {
+                string msg = "Are you sure you want to restore from your backup?\r\nThis will undo any changes you have made since then.";
+                if (MessageBox.Show(msg, "Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    File.Delete(ITEM_LIST_FILENAME);
+
+                    var dbfilename = ITEM_LIST_FILENAME + ".db";
+                    var constring = "Data Source=" + dbfilename + ";Version=3;";
+
+                    var backupConstring = "Data Source=" + ITEM_LIST_BACKUP_FILENAME + ";Version=3;";
+
+                    using (var source = new SQLiteConnection(backupConstring))
+                    using (var destination = new SQLiteConnection(constring))
+                    {
+                        source.Open();
+                        destination.Open();
+                        source.BackupDatabase(destination, "main", "main", -1, null, 0);
+                    }
+
+                    itemList.Reload();
+                    BuildMenu(itemList);
+                }
+            }
+            else
+            {
+                string msg = "Backup does not exist. Select File Management->Backup to create one.";
+                MessageBox.Show(msg, "Restore", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            /* Code to be removed Start
             if (File.Exists(ITEM_LIST_BACKUP_FILENAME)) {
                 string msg = "Are you sure you want to restore from your backup?\r\nThis will any changes you have made since then.";
                 if (MessageBox.Show(msg, "Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
@@ -57,19 +89,35 @@ namespace ClipMenu
                 string msg = "Backup does not exist. Select File Management->Backup to create one.";
                 MessageBox.Show(msg, "Restore", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            Code to be removed End */
         }
 
         void miFileMgmtBackup_Click(object sender, EventArgs e)
         {
+            var dbfilename = ITEM_LIST_FILENAME + ".db";
+            var constring = "Data Source=" + dbfilename + ";Version=3;";
+
+            var backupConstring = "Data Source=" + ITEM_LIST_BACKUP_FILENAME + ";Version=3;";
+
+            using (var source = new SQLiteConnection(constring))
+            using (var destination = new SQLiteConnection(backupConstring))
+            {
+                source.Open();
+                destination.Open();
+                source.BackupDatabase(destination, "main", "main", -1, null, 0);
+            }
+
+            /* Code to be removed Start
             if (File.Exists(ITEM_LIST_BACKUP_FILENAME)) File.Delete(ITEM_LIST_BACKUP_FILENAME);
             File.Copy(ITEM_LIST_FILENAME, ITEM_LIST_BACKUP_FILENAME);
+            Code to be removed End */
         }
 
-        void miFileMgmtReload_Click(object sender, EventArgs e)
-        {
-            itemList.Reload();
-            BuildMenu(itemList);
-        }
+        //void miFileMgmtReload_Click(object sender, EventArgs e)
+        //{
+        //    itemList.Reload();
+        //    BuildMenu(itemList);
+        //}
 
         void miFileMgmtEdit_Click(object sender, EventArgs e)
         {
