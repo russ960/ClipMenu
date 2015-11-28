@@ -141,7 +141,12 @@ namespace ClipMenu
 
         void miAddItem_Click(object sender, EventArgs e)
         {
-            itemList.Add(AddItemForm.AskForText());
+            Dictionary<string, string> itemListData = AddItemForm.AskForText();
+            foreach (KeyValuePair<string,string> pair in itemListData)
+            {
+                itemList.Add(pair.Key.ToString());
+            }
+            
             BuildMenu(itemList);
         }
 

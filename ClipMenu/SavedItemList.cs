@@ -44,7 +44,7 @@ namespace ClipMenu
 
             while (clipText.Read())
             {
-                items.Add(clipText["ClipText"].ToString());
+                items.Add(clipText["ClipName"].ToString());
             }
             dbconn.Close();
             /* End Load items in to list type item */

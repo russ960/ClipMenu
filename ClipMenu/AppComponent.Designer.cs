@@ -179,7 +179,7 @@
         private System.Windows.Forms.ToolStripMenuItem miCancel;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmt;
         //private System.Windows.Forms.ToolStripMenuItem miFileMgmtEdit;
-        private System.Windows.Forms.ToolStripMenuItem miFileMgmtReload;
+        //private System.Windows.Forms.ToolStripMenuItem miFileMgmtReload;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmtBackup;
         private System.Windows.Forms.ToolStripMenuItem miFileMgmtRestore;

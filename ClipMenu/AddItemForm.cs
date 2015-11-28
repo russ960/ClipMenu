@@ -30,14 +30,29 @@ namespace ClipMenu
         /// Displays a new AddItemForm to the user as a modal dialog box prompting for a string.
         /// </summary>
         /// <returns>The string the user entered, or null if the user pressed Cancel.</returns>
-        public static string AskForText()
+        public static Dictionary<string,string> AskForText()
         {
+            AddItemForm form = new AddItemForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Dictionary<string, string> formItem = new Dictionary<string, string>();
+                formItem.Add(form.itemText.Text, form.itemName.Text);
+                return formItem;
+
+            }
+            else
+            {
+                return null;
+            }
+
+            /* Code to be removed Start
             AddItemForm form = new AddItemForm();
             if (form.ShowDialog() == DialogResult.OK) {
                 return form.itemText.Text;
             } else {
                 return null;
             }
+            Code to be removed End */
         }
 
         private void itemText_TextChanged(object sender, EventArgs e)
